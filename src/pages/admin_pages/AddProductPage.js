@@ -1,4 +1,4 @@
-import { Form, Dropdown } from "react-bootstrap";
+import { Form, Dropdown, Button } from "react-bootstrap";
 import { useState } from 'react'
 
 /*
@@ -32,10 +32,12 @@ const AddProductPage = () => {
   const categoryName = category
     ? category.name
     : 'Select a category'
+  function handleSubmit (event) {
+  }
   return (
     <>
       <h2>Add Product</h2>
-      <Form>
+      <Form onSubmit={handleSubmit}>
         <Form.Group>
           <Form.Label>Name</Form.Label>
           <Form.Control
@@ -54,16 +56,33 @@ const AddProductPage = () => {
         </Form.Group>
         <Form.Group>
           <Form.Label>Price</Form.Label>
+          <Form.Control
+            value={price}
+            onChange={event => setPrice(event.target.value)}
+          />
         </Form.Group>
         <Form.Group>
           <Form.Label>Image</Form.Label>
+          <Form.Control
+            value={image}
+            onChange={event => setImage(event.target.value)}
+          />
         </Form.Group>
         <Form.Group>
           <Form.Label>Description</Form.Label>
+          <Form.Control
+            value={description}
+            onChange={event => setDescription(event.target.value)}
+          />
         </Form.Group>
         <Form.Group>
           <Form.Label>Quantity</Form.Label>
+          <Form.Control
+            value={quantity}
+            onChange={event => setQuantity(event.target.value)}
+          />
         </Form.Group>
+        <Button type='submit'>Submit</Button>
       </Form>
     </>
   )
