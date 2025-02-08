@@ -1,6 +1,13 @@
-import { Table, Image } from "react-bootstrap";
+import { Table, Image, Button } from "react-bootstrap";
+import { useState } from 'react'
+import AddProductPage from "./AddProductPage";
 
 const AdminProductsListPage = () => {
+  const [adding, setAdding] = useState(false)
+  if (adding) {
+    return <AddProductPage />
+  }
+
   const localProducts = localStorage.getItem('products')
   const products = JSON.parse(localProducts)
   const localCategories = localStorage.getItem('categories')
@@ -24,9 +31,13 @@ const AdminProductsListPage = () => {
       </tr>
     )
   })
+  function handleClick () {
+    setAdding(true)
+  }
   return (
     <>
       <h1>Products List</h1>
+      <Button onClick={handleClick}>Add Product</Button>
       <Table>
         <thead>
           <tr>
