@@ -1,5 +1,6 @@
 import { Form, Dropdown, Button } from "react-bootstrap";
 import { useState } from 'react'
+import AdminProductsListPage from "./AdminProductsListPage";
 
 /*
 <th>Name</th>
@@ -17,6 +18,11 @@ const AddProductPage = () => {
   const [image, setImage] = useState('')
   const [description, setDescription] = useState('')
   const [quantity, setQuantity] = useState('')
+  const [listing, setListing] = useState(false)
+  if (listing) {
+    return <AdminProductsListPage />
+  }
+
   const localCategories = localStorage.getItem('categories')
   const categories = JSON.parse(localCategories)
   const options = categories.map(category => {
@@ -33,6 +39,41 @@ const AddProductPage = () => {
     ? category.name
     : 'Select a category'
   function handleSubmit (event) {
+    event.preventDefault()
+    const localProducts = localStorage.getItem('products')
+    const products = JSON.parse(localProducts)
+    /*
+    {
+      category: 5,
+      description: "Your perfect pack for everyday use and walks in the forest. Stash your laptop (up to 15 inches) in the padded sleeve, your everyday",
+      id: 1,
+      image: "https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg",
+      name: "Fjallraven - Foldsack No. 1 Backpack, Fits 15 Laptops",
+      price: 109.95,
+      quantity: 0,
+      rating:  {rate: 3.9, count: 120}
+    }
+    */
+    const oldIds = products.map(product => product.id)
+    const maximumId = Math.max(...oldIds)
+    const newId = maximumId + 1
+    const newProduct = {
+      category: Number(categoryId),
+      description,
+      id: newId,
+      image,
+      name,
+      price: Number(price),
+      quantity: Number(quantity),
+      rating: {
+        rate: 0,
+        count: 0
+      }
+    }
+    const newProducts = [...products, newProduct]
+    const newProductsString = JSON.stringify(newProducts)
+    localStorage.setItem('products', newProductsString)
+    setListing(true)
   }
   return (
     <>
