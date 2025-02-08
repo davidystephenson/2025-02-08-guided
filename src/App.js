@@ -18,7 +18,7 @@ const App = () => {
         <Container>
           {loggedIdUser && !loggedIdUser.isAdmin && <UserProfilePage/>}
           {loggedIdUser && loggedIdUser.isAdmin && <AdminProductsListPage />}
-          {/*loggedIdUser && loggedIdUser.isAdmin && <CategoriesListPage/>*/}
+          {loggedIdUser && loggedIdUser.isAdmin && <CategoriesListPage/>}
           {/*loggedIdUser && loggedIdUser.isAdmin && <UsersListPage/>*/}
           {!loggedIdUser && <LoginPage />}
         </Container>
