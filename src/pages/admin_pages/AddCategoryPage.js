@@ -1,9 +1,14 @@
 import { useState } from 'react'
 import { Form, Button } from 'react-bootstrap';
+import CategoriesListPage from './CategoriesListPage';
 
 const AddCategoryPage = () => {
   const [name, setName] = useState('')
   const [description, setDescription] = useState('')
+  const [listing, setListing] = useState(false)
+  if (listing) {
+    return <CategoriesListPage />
+  }
   function handleNameChange (event) {
     setName(event.target.value)
   }
@@ -27,6 +32,7 @@ const AddCategoryPage = () => {
     const newCategories = [...categories, newCategory]
     const newCategoriesString = JSON.stringify(newCategories)
     localStorage.setItem('categories', newCategoriesString)
+    setListing(true)
   }
   return (
     <>
